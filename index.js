@@ -30,6 +30,10 @@ function requestAsEventEmitter(opts) {
 	const get = opts => {
 		const fn = opts.protocol === 'https:' ? https : http;
 
+		if (opts.agents) {
+			opts.agent = opts.agents[opts.protocol] || opts.agent;
+		}
+
 		const req = fn.request(opts, res => {
 			const statusCode = res.statusCode;
 
