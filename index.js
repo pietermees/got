@@ -24,14 +24,16 @@ function requestAsEventEmitter(opts) {
 	const ee = new EventEmitter();
 	const requestUrl = opts.href || urlLib.resolve(urlLib.format(opts), opts.path);
 	let redirectCount = 0;
+	const agents = typeof opts.agent === 'object' ? opts.agent : null;
 	let retryCount = 0;
 	let redirectUrl;
 
 	const get = opts => {
 		const fn = opts.protocol === 'https:' ? https : http;
 
-		if (opts.agents) {
-			opts.agent = opts.agents[opts.protocol] || opts.agent;
+		if (agents) {
+			const protocolName = opts.protocol === 'https:' ? 'https' : 'http';
+			opts.agent = agents[protocolName] || opts.agent;
 		}
 
 		const req = fn.request(opts, res => {
