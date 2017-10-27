@@ -29,6 +29,11 @@ function requestAsEventEmitter(opts) {
 	let redirectUrl;
 
 	const get = opts => {
+		if (opts.protocol !== 'http:' && opts.protocol !== 'https:') {
+			ee.emit('error', new Error('Protocol ' + opts.protocol + ' not supported'));
+			return;
+		}
+
 		const fn = opts.protocol === 'https:' ? https : http;
 
 		if (agents) {
