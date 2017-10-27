@@ -1,5 +1,5 @@
 {
-  "name": "got",
+  "name": "@zentrick/got",
   "version": "6.7.1",
   "description": "Simplified HTTP requests",
   "license": "MIT",
